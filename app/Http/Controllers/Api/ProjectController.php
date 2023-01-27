@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isNull;
 
 class ProjectController extends Controller
 {
