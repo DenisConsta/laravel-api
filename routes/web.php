@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,10 @@ Route::middleware(['auth', 'verified'])
     });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+//rotta per tutte le rotte vue da mettere dopo tutte le altre rotte
+
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '*')->name('home');

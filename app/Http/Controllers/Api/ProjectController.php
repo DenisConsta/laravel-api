@@ -8,10 +8,18 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index(){
-       /*  $projects = Project::with(['type', 'user'])->paginate(10); */
-
-        $projects = Project::all();
+    public function index()
+    {
+        $projects = Project::with(['type', 'user'])->paginate(10);
         return response()->json(compact('projects'));
+    }
+
+    public function show($slug)
+    {
+        $project = Project::where('slug', $slug)->with(['type', 'user'])->get();
+
+        /* implementare controllo immagini */
+
+        return response()->json(compact('project'));
     }
 }

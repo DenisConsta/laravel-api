@@ -17,6 +17,20 @@ return new class extends Migration {
 
             $table->string('name', 100);
             $table->string('slug', 105)->unique();
+
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->cascadeOnDelete();
+
+            $table->unsignedBigInteger('type_id')->nullable();
+            $table->foreign('type_id')
+                ->references('id')
+                ->on('types')
+                ->cascadeOnDelete();
+
             $table->string('client_name', 100);
             $table->text('summary')->nullable();
             $table->string('cover_image')->nullable();
