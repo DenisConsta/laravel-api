@@ -14,7 +14,8 @@ export default {
             console.log(basicUrl);
             axios.get(basicUrl + 'projects/' + this.$route.params.slug)
                 .then(res => {
-                    this.project = res.data.project[0];
+                    this.project = res.data.project;
+                    console.log(this.project);
                 })
 
         }
@@ -30,7 +31,9 @@ export default {
     <h1>{{ project.name }}</h1>
     <h2> {{ project.client_name }} </h2>
     <p v-html="project.summary"></p>
-    <img :src="project.cover_image" alt="">
+    <img :src="project.cover_image" :alt="project.name">
+
+
 
 </template>
 
