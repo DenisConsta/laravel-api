@@ -15,6 +15,13 @@ export class ApiService {
             })
             .then((res) => {
                 console.log(res);
+
+                if(res.data.technologies)
+                    store.technologies = res.data.technologies;
+
+                if(res.data.types)
+                    store.types = res.data.types;
+
                 store.projects = res.data.projects.data;
 
                 /* paginatation */

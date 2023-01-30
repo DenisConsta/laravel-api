@@ -3,6 +3,8 @@ import { reactive } from 'vue';
 export const store = reactive({
 
     projects: [],
+    technologies: [],
+    types: [],
 
     pagination: {
         last_route: null,

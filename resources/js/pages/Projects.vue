@@ -40,6 +40,9 @@ export default {
         <div v-for="project in store.projects" :key="project.id" class="col-3 mb-3">
             <AppCard :project="project" />
         </div>
+
+        <h3 v-if="store.projects.length<1" class="text-center my-3">La ricerca non ha prodotto risultati</h3>
+
         </div>
     </div>
 
@@ -51,6 +54,7 @@ export default {
         justify-content-center
         align-items-center
         "
+        v-if="store.pagination.last_page !== 1"
     >
         <button
         class="btn btn-primary"
