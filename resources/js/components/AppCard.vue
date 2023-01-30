@@ -1,15 +1,16 @@
 <script>
 
-
 export default {
     name: "AppCard",
-    components: {},
+    components: {
+
+    },
     props: {
         project: Object,
     },
     data() {
         return {
-            
+
         };
     },
     methods: {},
@@ -31,4 +32,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+
+
 </style>

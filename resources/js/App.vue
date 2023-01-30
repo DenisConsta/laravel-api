@@ -1,5 +1,6 @@
 <script>
 import Header from "./partials/Header.vue";
+
 export default {
     name: "App",
     components: {
