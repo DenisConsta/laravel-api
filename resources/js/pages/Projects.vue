@@ -1,29 +1,39 @@
 <script>
 import { ApiService } from "../services/api.service";
 import { store } from "../data/store";
+import { nextPrev } from '../data/functions';
+
+
 import AppCard from "../components/AppCard.vue";
+import SearchBox from "../components/SearchBox.vue";
 
 export default {
     name: "Projects",
     components: {
         AppCard,
+        SearchBox,
+
     },
     data() {
         return {
             store,
             ApiService,
+            nextPrev,
+
         };
     },
     methods: {
     },
     mounted() {
-        ApiService.getApi('projects', '');
+        ApiService.getApi('projects', {});
     },
 };
 </script>
 
 <template>
     <h1 class="display-1 text-center mb-5">Elenco progetti</h1>
+
+    <SearchBox />
 
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -44,7 +54,7 @@ export default {
     >
         <button
         class="btn btn-primary"
-        @click="store.pagination.current_page--; ApiService.getApi('projects', '')"
+        @click="nextPrev(false)"
         v-show="store.pagination.current_page > 1"
         >
         Prev
@@ -55,7 +65,7 @@ export default {
         </h4>
         <button
         class="btn btn-primary"
-        @click="store.pagination.current_page++; ApiService.getApi('projects', '')"
+        @click="nextPrev(true)"
         v-show="
             store.pagination.current_page <
             store.pagination.last_page

@@ -12,7 +12,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with(['type', 'user'])->paginate(10);
+        $projects = Project::with(['type', 'user', 'technologies'])->paginate(10);
 
         foreach($projects as $project)
             $project = myHelper::checkImage($project);
@@ -25,6 +25,16 @@ class ProjectController extends Controller
         $project = Project::where('slug', $slug)->with(['type', 'user'])->first();
         $project = myHelper::checkImage($project);
         return response()->json(compact('project'));
+    }
 
+    public function search(){
+        $tosearch = $_GET['tosearch'];
+        $projects = Project::where('name', 'like', "%$tosearch%")->with(['type', 'user', 'technologies'])->paginate(10);
+
+        foreach($projects as $project)
+            $project = myHelper::checkImage($project);
+
+
+        return response()->json(compact('projects'));
     }
 }

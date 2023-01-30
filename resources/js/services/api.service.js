@@ -4,22 +4,29 @@ import { basicUrl } from "../data/data";
 
 export class ApiService {
 
-    static getApi(route, uri) {
-        let page = '';
-        if(store.pagination.current_page != null)
-            page = store.pagination.current_page;
-
+    static getApi(route, para) {
+        console.log(para);
         return axios
-            .get( `${basicUrl}${route}/${uri}` , {
-                params: {
-                    page: page
+            .get( `${basicUrl}${route}/` , {
+                params:{
+                    page: para.page,
+                    tosearch: para.tosearch,
                 }
             })
             .then((res) => {
+                console.log(res);
                 store.projects = res.data.projects.data;
+
+                /* paginatation */
+                store.pagination.last_route = route;
                 store.pagination.current_page = res.data.projects.current_page;
                 store.pagination.last_page = res.data.projects.last_page;
+
+                console.log(`${basicUrl}${route}/`);
+                console.log(store.projects);
                 console.log(store.pagination);
+
+                /* store.tosearch = ''; */
             })
             .catch((error) => {
                 console.log(error);
