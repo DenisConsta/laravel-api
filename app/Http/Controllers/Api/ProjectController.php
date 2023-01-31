@@ -42,16 +42,24 @@ class ProjectController extends Controller
     }
 
     public function getByType($id){
-        $projects = Project::where('type_id', $id)->with('type', 'user', 'technologies')->get();
+        
+        $projects = Project::where('type_id', $id)->with('type', 'user', 'technologies')->paginate(10);
 
+        foreach ($projects as $project)
+            $project = myHelper::checkImage($project);
+            
         return response()->json(compact('projects'));
     }
 
     public function getByTech($id){
-        $projects = Project::whereHas('project_technologies', function (Builder $query) use ($id) {
-            $query->where('technology_id', $id);
-        });
+        $projects = Project::with(['type', 'user', 'technologies'])
+            ->whereHas('technologies', function (Builder $query) use ($id) {
+                $query->where('technology_id', $id);
+            })->paginate(10);
 
+        foreach ($projects as $project)
+            $project = myHelper::checkImage($project);
+        
         return response()->json(compact('projects'));
     }
 }

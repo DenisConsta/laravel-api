@@ -7,6 +7,7 @@ export function apiSearch(string) {
     store.lastUrl = `http://127.0.0.1:8000/api/projects/search/?tosearch=${string}`;
 }
 
+
 export function nextPrev(dir) {
     if (dir)
         ApiService.getApi(store.pagination.last_route, {

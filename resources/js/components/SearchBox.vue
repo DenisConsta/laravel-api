@@ -11,7 +11,24 @@ export default {
         ApiService,
         store,
         apiSearch,
-        };
+        techSelected : null,
+        }
+    },
+    methods:{
+        switchSelect(event, type){
+            this.techSelected = event.target.value;
+            console.log(event.target.value);
+            if(this.techSelected != null || this.techSelected  != ''){
+                let route='';  
+
+                if(type === 'tech')
+                    route = 'projects-technology';    
+                else if(type === 'type')
+                    route = 'projects-type';    
+
+                ApiService.getApi(`projects/${route}/${this.techSelected}`, '');
+            }
+        }
     },
 };
 </script>
@@ -38,13 +55,13 @@ export default {
             </div>
 
             <!-- ? technologies -->
-            <select class="form-select w-25" aria-label="Default select example">
+            <select class="form-select w-25" aria-label="Default select example" @change="switchSelect($event, 'tech')">
                     <option value="">Selezionare una tecnologia</option>
                     <option v-for="tech in store.technologies" :value="tech.id" :key="'tech'+tech.id"> {{ tech.name }} </option>
                 </select>
 
                 <!-- ? types -->
-            <select class="form-select w-25" aria-label="Default select example">
+            <select class="form-select w-25" aria-label="Default select example" @change="switchSelect($event, 'type')" >
                     <option value="">Selezionare una tipologia</option>
                     <option v-for="item in store.types" :value="item.id" :key="'tech'+item.id"> {{ item.name }} </option>
                 </select>

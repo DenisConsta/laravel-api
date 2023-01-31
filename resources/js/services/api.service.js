@@ -6,6 +6,8 @@ export class ApiService {
 
     static getApi(route, para) {
         console.log(para);
+        console.log(`${basicUrl}${route}/`);
+
         return axios
             .get(`${basicUrl}${route}/`, {
                 params: {
@@ -29,11 +31,11 @@ export class ApiService {
                 store.pagination.current_page = res.data.projects.current_page;
                 store.pagination.last_page = res.data.projects.last_page;
 
-                /*
+                
                 console.log(`${basicUrl}${route}/`);
                 console.log(store.projects);
                 console.log(store.pagination);
-                */
+                
 
             })
             .catch((error) => {
