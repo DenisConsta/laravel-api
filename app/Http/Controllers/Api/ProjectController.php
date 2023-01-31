@@ -7,8 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
-use Illuminate\Http\Request;
-
+use Illuminate\Database\Eloquent\Builder as Builder;
 
 class ProjectController extends Controller
 {
@@ -28,6 +27,7 @@ class ProjectController extends Controller
     {
         $project = Project::where('slug', $slug)->with(['type', 'user'])->first();
         $project = myHelper::checkImage($project);
+
         return response()->json(compact('project'));
     }
 
@@ -38,6 +38,19 @@ class ProjectController extends Controller
         foreach($projects as $project)
             $project = myHelper::checkImage($project);
 
+        return response()->json(compact('projects'));
+    }
+
+    public function getByType($id){
+        $projects = Project::where('type_id', $id)->with('type', 'user', 'technologies')->get();
+
+        return response()->json(compact('projects'));
+    }
+
+    public function getByTech($id){
+        $projects = Project::whereHas('project_technologies', function (Builder $query) use ($id) {
+            $query->where('technology_id', $id);
+        });
 
         return response()->json(compact('projects'));
     }

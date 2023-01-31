@@ -7,8 +7,8 @@ export class ApiService {
     static getApi(route, para) {
         console.log(para);
         return axios
-            .get( `${basicUrl}${route}/` , {
-                params:{
+            .get(`${basicUrl}${route}/`, {
+                params: {
                     page: para.page,
                     tosearch: para.tosearch,
                 }
@@ -16,10 +16,10 @@ export class ApiService {
             .then((res) => {
                 console.log(res);
 
-                if(res.data.technologies)
+                if (res.data.technologies)
                     store.technologies = res.data.technologies;
 
-                if(res.data.types)
+                if (res.data.types)
                     store.types = res.data.types;
 
                 store.projects = res.data.projects.data;
@@ -29,14 +29,34 @@ export class ApiService {
                 store.pagination.current_page = res.data.projects.current_page;
                 store.pagination.last_page = res.data.projects.last_page;
 
+                /*
                 console.log(`${basicUrl}${route}/`);
                 console.log(store.projects);
                 console.log(store.pagination);
+                */
 
-                /* store.tosearch = ''; */
             })
             .catch((error) => {
                 console.log(error);
             });
     }
+
+    /* static postApi(route, data) {
+        data.success = false;
+        axios.post(`${basicUrl}${route}`, data)
+            .then(res => {
+                if (!res.data.success) {
+                    data.success = false;
+                    data.errors = res.data.errors;
+
+                } else {
+                    data.name = '';
+                    data.object = '';
+                    data.email = '';
+                    data.message = '';
+                    data.errors = {};
+                }
+            });
+        return data;
+    } */
 }
